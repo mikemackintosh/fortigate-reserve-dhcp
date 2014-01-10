@@ -1,0 +1,17 @@
+config system dhcp server
+    edit 1
+        config reserved-address
+            edit {ID}
+                set description "{DEVICENAME}"
+                set ip {IPADDRESS}
+                set mac {MACADDRESS}
+            next
+        end
+    next
+end
+config firewall address
+    edit "{DEVICENAME}"
+        set associated-interface {INTERFACE}
+        set subnet {IPADDRESS} {NETMASK}
+    next
+end
