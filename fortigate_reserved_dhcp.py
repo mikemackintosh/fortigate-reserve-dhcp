@@ -102,6 +102,7 @@ if __name__ == "__main__":
     for sections in group_by_section(fortigate_config, 'reserved-address'):
         if(sections[0] == "config reserved-address"):
             for config in sections:
+                config = config.lstrip()
                 if config.startswith("edit"):
                     entry = config.split(" ")[1]
                     last_entry = int(entry)
