@@ -1,7 +1,9 @@
-fortigate-reserve-dhcp
+Fortigate Reserved DHCP Manager
 ======================
 
-Python Script to help with the correlation of reserved DHCP and Policy Object
+This script allows you to easily manage reserved DHCP as well as correlating firewall address objects. This simplified the policy workflow for static devices tied to users.
+
+***NOTE***: There is no input validation or error checking applied yet. Will come shortly.
 
 ## Usage
 
