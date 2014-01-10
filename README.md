@@ -19,6 +19,8 @@ Then pass them to the script like so:
 
 ## Example
 
+Running the following command with respective arguments will push config to your fortigate
+
     👻 chronosec: ~/Desktop% ./fortigate_reserved_dhcp.py iPod 10.1.1.80 b8:c7:gg:3f:gh:ij
     Initiating Fortinet Reserved DHCP Address
     
@@ -39,9 +41,13 @@ Then pass them to the script like so:
             end
         next
     end
-    config firewall addres
+    config firewall address
         edit "iPod"
             set associated-interface LAN
             set subnet 10.1.1.80 255.255.255.255
         next
     end
+
+    Finished!
+    
+Now, log onto your device and run `show system dhcp server` and `show firewalls address` to see the new additions.
