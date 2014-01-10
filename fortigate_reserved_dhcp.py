@@ -98,15 +98,28 @@ if __name__ == "__main__":
     last_entry = 0;
     entry_count = 0;
 
-    # Loop through the retrieved data
+     # Loop through the retrieved data
     for sections in group_by_section(fortigate_config, 'reserved-address'):
         if(sections[0] == "config reserved-address"):
             for config in sections:
                 config = config.lstrip()
                 if config.startswith("edit"):
-                    entry = config.split(" ")[1]
+                    entry = config.split()[1]
                     last_entry = int(entry)
                     entry_count = entry_count+1
+                elif entry != 0:
+                    if config.startswith("set description"):
+                        description = config.split()[2]
+                        if description == devicename:
+                            print "Device Name already exists (ID: %d)" % last_entry
+                            exit()
+                    if macaddress in config:
+                        print "MAC Address is already reserved In Entry %d (%s)" % (last_entry, description)
+                        exit()
+                    if ipaddress in config:
+                        print "IP Address is already reserved In Entry %d (%s)" % (last_entry, description)
+                        exit()
+
     
     interface = get_config_value(fortigate_config, "set interface")[1].replace('"', "")
     
@@ -125,7 +138,11 @@ if __name__ == "__main__":
     print result
 
     stdin, stdout, stderr = ssh.exec_command( result )
-    response = stdout.readlines()    
+    response = stdout.read()    
+
+    if response.find("Can not set duplicate entry."):
+        print "[Error!] Found a duplicate entry"
+
     print "\nFinished!" 
 
     ssh.close()
