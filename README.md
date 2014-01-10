@@ -5,17 +5,19 @@ Python Script to help with the correlation of reserved DHCP and Policy Object
 
 ## Usage
 
-Pass the following arguments to the command
+The following details are needed:
 
   - Device Name
   - IP Address
   - MAC Address
 
+Then pass them to the script like so:
+
     ./fortigate_reserved_dhcp.py iPod 10.1.1.80 b8:c7:gg:3f:gh:ij
 
 ## Example
 
-    👻 chronosec: ~/Desktop% ./fortigate_reserved_dhcp.py Michaels-iPod 10.1.4.80 b8:c7:5d:3d:fe:6a
+    👻 chronosec: ~/Desktop% ./fortigate_reserved_dhcp.py iPod 10.1.1.80 b8:c7:gg:3f:gh:ij
     Initiating Fortinet Reserved DHCP Address
     
     Connecting to Device: 10.1.4.99
@@ -28,16 +30,16 @@ Pass the following arguments to the command
         edit 1
             config reserved-address
                 edit 2
-                    set description "Michaels-iPod"
-                    set ip 10.1.4.80
-                    set mac b8:c7:5d:3d:fe:6a
+                    set description "iPod"
+                    set ip 10.1.1.80
+                    set mac  b8:c7:gg:3f:gh:ij
                 next
             end
         next
     end
     config firewall addres
-        edit "Michaels-iPod"
+        edit "iPod"
             set associated-interface LAN
-            set subnet 10.1.4.80 255.255.255.255
+            set subnet 10.1.1.80 255.255.255.255
         next
     end
